@@ -1,6 +1,10 @@
-# Task 1 taller de R - Taller tipo A
-#) Integrantes
-# David Acero Acero: 201228148
+#==============================================================================#
+# Autores: David Acero Acero: 201228148
+# Colaboradores:
+# Fecha elaboracion:05 de marzo de 2021
+# Ultima modificacion: 09 de marzo de 2021
+# Version de R: 4.0.3
+#==============================================================================#
 
 pacman::p_load(tidyverse,readxl,haven,xlsx) #Cargar los paquetes necesarios 
 
