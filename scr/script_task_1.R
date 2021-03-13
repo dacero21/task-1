@@ -2,7 +2,7 @@
 # Autores: David Acero Acero: 201228148 Andres Cembrano:201630829 Jorge Lozano: 201816744
 # Colaboradores:
 # Fecha elaboracion:05 de marzo de 2021
-# Ultima modificacion: 09 de marzo de 2021
+# Ultima modificacion: 13 de marzo de 2021
 # Version de R: 4.0.3
 #==============================================================================#
 rm(list = ls()) # Limpiar el ambiente 
@@ -44,7 +44,7 @@ h_ingreso=ggplot() + geom_histogram(data=base_final, aes(x=P6500, group=P6020, c
                                                                                                                                  y="Numero de personas",
                                                                                                                                  x="Ingreso" )
 h_ingreso
-ggsave(plot=h_ingreso, file="data/output/Histograma Ingreso.jpeg")
+ggsave(plot=h_ingreso, file="views/Histograma Ingreso.jpeg")
 
 
 h_escolaridad=ggplot() + geom_histogram(data=base_final, aes(x=ESC, group=P6020, colour=P6020, fill=P6020)) + theme_light() + labs(title = "Histograma de Años de Escolaridad",
@@ -52,23 +52,23 @@ h_escolaridad=ggplot() + geom_histogram(data=base_final, aes(x=ESC, group=P6020,
                                                                                                                                    y="Numero de personas",
                                                                                                                                    x="Anos de escolaridad" )
 h_escolaridad
-ggsave(plot = h_escolaridad, file="data/output/Histograma Escolaridad.jpeg")
+ggsave(plot = h_escolaridad, file="views/Histograma Escolaridad.jpeg")
 
 h_edad=ggplot() + geom_histogram(data=base_final, aes(x=P6040, group=P6020, colour=P6020, fill=P6020)) + theme_light() + labs(title = "Histograma de Edad Hombres y Mujeres",
                                                                                                                               caption="Hombres en Azul Oscuro  y Mujeres en Azul Claro", 
                                                                                                                               y="Numero de personas",
                                                                                                                               x="Edad" )
 h_edad
-ggsave(plot=h_edad, file="data/output/Histograma Edad.jpeg")
+ggsave(plot=h_edad, file="views/Histograma Edad.jpeg")
 
 esc_ing= ggplot(base_final, aes(x=ESC, y=P6500)) + geom_point(color="#69b3a2")+geom_smooth(method = lm,color="red", se=F) + theme_light() + labs(title = "Diagrama de dispercion Anos de Escolaridad e Ingreso",
                                                                                                                                                  y="Ingreso",
                                                                                                                                                  x="Anos de Escolaridad")
 esc_ing
-ggsave(plot = esc_ing, file="data/output/Dispercion Esc_Ing.jpeg")
+ggsave(plot = esc_ing, file="views/Dispercion Esc_Ing.jpeg")
 
 esc_edad= ggplot(base_final, aes(x=P6040, y=P6500)) + geom_point(color="#69b3a2")+geom_smooth(method = lm,color="red", se=F) + theme_light() + labs(title = "Diagrama de dispercion Edad e Ingreso",
                                                                                                                                                     y="Ingreso",
                                                                                                                                                     x="Edad")
 esc_edad
-ggsave(plot = esc_edad, file="data/output/Dispercion Esc_Edad.jpeg")
+ggsave(plot = esc_edad, file="views/Dispercion Esc_Edad.jpeg")
