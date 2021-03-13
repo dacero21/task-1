@@ -1,11 +1,11 @@
 #==============================================================================#
-# Autores: David Acero Acero: 201228148 Andres Cembrano:201630829
+# Autores: David Acero Acero: 201228148 Andres Cembrano:201630829 Jorge Lozano: 201816744
 # Colaboradores:
 # Fecha elaboracion:05 de marzo de 2021
 # Ultima modificacion: 09 de marzo de 2021
 # Version de R: 4.0.3
 #==============================================================================#
-
+rm(list = ls()) # Limpiar el ambiente 
 pacman::p_load(tidyverse,readxl,haven,xlsx) #Cargar los paquetes necesarios 
 
 #1. Vectores. 
@@ -28,3 +28,47 @@ cultivos$`hectareas de coca`=replace(cultivos$`hectareas de coca`,which(is.na(cu
 caracteristicas=readRDS("data/input/2019/Cabecera - Caracteristicas generales (Personas).rds") #Importar la base de caracteristicas
 ocupados=readRDS("data/input/2019/Cabecera - Ocupados.rds") #Importar la base de ocupados
 base_final=merge(caracteristicas,ocupados,by = c("directorio","secuencia_p","orden")) #Unificar las bases caracteristicas y ocupados
+
+#3.2 Descriptivas
+#Tabla
+base_stats=dplyr::select(base_final,ESC, P6020, P6160, P6170, P6040, P6050 ) #Se crea un subset con las variables de interes
+print(summary(base_stats)) #Imprime estadisticas de las variables escogidas
+
+
+
+
+#Graficas
+
+h_ingreso=ggplot() + geom_histogram(data=base_final, aes(x=P6500, group=P6020, colour=P6020, fill=P6020)) + theme_light() + labs(title = "Histograma de Ingresos Hombres y Mujeres",
+                                                                                                                                 caption="Hombres en Azul Oscuro  y Mujeres en Azul Claro", 
+                                                                                                                                 y="Numero de personas",
+                                                                                                                                 x="Ingreso" )
+h_ingreso
+ggsave(plot=h_ingreso, file="data/output/Histograma Ingreso.jpeg")
+
+
+h_escolaridad=ggplot() + geom_histogram(data=base_final, aes(x=ESC, group=P6020, colour=P6020, fill=P6020)) + theme_light() + labs(title = "Histograma de Años de Escolaridad",
+                                                                                                                                   caption="Hombres en Azul Oscuro  y Mujeres en Azul Claro", 
+                                                                                                                                   y="Numero de personas",
+                                                                                                                                   x="Anos de escolaridad" )
+h_escolaridad
+ggsave(plot = h_escolaridad, file="data/output/Histograma Escolaridad.jpeg")
+
+h_edad=ggplot() + geom_histogram(data=base_final, aes(x=P6040, group=P6020, colour=P6020, fill=P6020)) + theme_light() + labs(title = "Histograma de Edad Hombres y Mujeres",
+                                                                                                                              caption="Hombres en Azul Oscuro  y Mujeres en Azul Claro", 
+                                                                                                                              y="Numero de personas",
+                                                                                                                              x="Edad" )
+h_edad
+ggsave(plot=h_edad, file="data/output/Histograma Edad.jpeg")
+
+esc_ing= ggplot(base_final, aes(x=ESC, y=P6500)) + geom_point(color="#69b3a2")+geom_smooth(method = lm,color="red", se=F) + theme_light() + labs(title = "Diagrama de dispercion Anos de Escolaridad e Ingreso",
+                                                                                                                                                 y="Ingreso",
+                                                                                                                                                 x="Anos de Escolaridad")
+esc_ing
+ggsave(plot = esc_ing, file="data/output/Dispercion Esc_Ing.jpeg")
+
+esc_edad= ggplot(base_final, aes(x=P6040, y=P6500)) + geom_point(color="#69b3a2")+geom_smooth(method = lm,color="red", se=F) + theme_light() + labs(title = "Diagrama de dispercion Edad e Ingreso",
+                                                                                                                                                    y="Ingreso",
+                                                                                                                                                    x="Edad")
+esc_edad
+ggsave(plot = esc_edad, file="data/output/Dispercion Esc_Edad.jpeg")
